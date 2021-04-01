@@ -1,0 +1,220 @@
+{
+  "tasks": [
+    {
+      "temp": false,
+      "text": "Edited text in task with PATH request",
+      "created": {
+        "utc": "Marth 12, 2021 00:00:00 GMT+06:00",
+        "timestamp": 1436543657654
+      },
+      "edited": {
+        "utc": "2021-03-30T21:51:01.300Z",
+        "timestamp": 1617141061300
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-03-30T21:37:06.480Z",
+        "timestamp": 1617140226480
+      },
+      "id": 1
+    },
+    {
+      "temp": false,
+      "text": "Настроить передачу данных в дочерний компонент",
+      "created": {
+        "utc": "2021-03-22T20:34:12.473Z",
+        "timestamp": 1616445252473
+      },
+      "edited": {
+        "utc": "2021-03-30T21:51:01.621Z",
+        "timestamp": 1617141061621
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-03-29T22:06:27.787Z",
+        "timestamp": 1617055587787
+      },
+      "id": 3
+    },
+    {
+      "temp": false,
+      "text": "Настроить передачу событий в материнский компонент",
+      "created": {
+        "utc": "2021-03-24T09:19:00.696Z",
+        "timestamp": 1616577540696
+      },
+      "edited": {
+        "utc": "2021-03-30T21:51:01.915Z",
+        "timestamp": 1617141061915
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-03-29T22:06:19.152Z",
+        "timestamp": 1617055579152
+      },
+      "id": 4
+    },
+    {
+      "temp": false,
+      "id": 5,
+      "text": "Завершить верстку тудулиста",
+      "created": {
+        "utc": "2021-03-28T07:06:58.207Z",
+        "timestamp": 1616915218207
+      },
+      "edited": {
+        "utc": "2021-03-30T21:51:02.214Z",
+        "timestamp": 1617141062214
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-03-29T22:06:21.865Z",
+        "timestamp": 1617055581865
+      }
+    },
+    {
+      "temp": false,
+      "id": 7,
+      "text": "Добавить вызов контекстного меню смахиванием",
+      "created": {
+        "utc": "2021-03-29T18:37:18.882Z",
+        "timestamp": 1617043038882
+      },
+      "edited": {
+        "utc": "2021-03-30T21:51:02.484Z",
+        "timestamp": 1617141062484
+      },
+      "completed": {
+        "status": false,
+        "utc": null,
+        "timestamp": null
+      }
+    },
+    {
+      "temp": false,
+      "id": 9,
+      "text": "Добавить функционал применения изменений по клавише @Enter",
+      "created": {
+        "utc": "2021-03-29T22:04:40.976Z",
+        "timestamp": 1617055480976
+      },
+      "edited": {
+        "utc": "2021-03-30T21:51:03.076Z",
+        "timestamp": 1617141063076
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-03-30T21:36:34.429Z",
+        "timestamp": 1617140194429
+      }
+    },
+    {
+      "temp": false,
+      "id": 10,
+      "text": "Добавить фильтрацию для невыполненных тасков",
+      "created": {
+        "utc": "2021-03-30T21:38:47.945Z",
+        "timestamp": 1617140327945
+      },
+      "edited": {
+        "utc": "2021-03-30T21:51:03.604Z",
+        "timestamp": 1617141063604
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-03-30T21:38:50.817Z",
+        "timestamp": 1617140330817
+      }
+    },
+    {
+      "temp": false,
+      "id": 11,
+      "text": "Добавить отображение штампов времени у таска, (создан / измененен)",
+      "created": {
+        "utc": "2021-03-30T21:40:39.345Z",
+        "timestamp": 1617140439345
+      },
+      "edited": {
+        "utc": "2021-03-30T21:51:04.062Z",
+        "timestamp": 1617141064062
+      },
+      "completed": {
+        "status": false,
+        "utc": null,
+        "timestamp": null
+      }
+    },
+    {
+      "temp": false,
+      "id": 12,
+      "text": "Инициировать создание нового таска при нажатии @Энтер",
+      "created": {
+        "utc": "2021-03-30T21:41:41.626Z",
+        "timestamp": 1617140501626
+      },
+      "edited": {
+        "utc": "2021-03-30T21:51:04.725Z",
+        "timestamp": 1617141064725
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-03-30T22:05:39.910Z",
+        "timestamp": 1617141939910
+      }
+    },
+    {
+      "temp": false,
+      "id": 13,
+      "text": "Добавить поиск тасков",
+      "created": {
+        "utc": "2021-03-30T21:42:44.570Z",
+        "timestamp": 1617140564570
+      },
+      "edited": {
+        "utc": "2021-03-30T21:51:05.734Z",
+        "timestamp": 1617141065734
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-03-30T21:57:12.991Z",
+        "timestamp": 1617141432991
+      }
+    },
+    {
+      "temp": false,
+      "id": 14,
+      "text": "Сделать реактивными фильтрованные таски",
+      "created": {
+        "utc": "2021-03-31T18:45:12.820Z",
+        "timestamp": 1617216312820
+      },
+      "edited": {
+        "utc": null,
+        "timestamp": null
+      },
+      "completed": {
+        "status": false,
+        "utc": null,
+        "timestamp": null
+      }
+    },
+    {
+      "temp": false,
+      "id": 15,
+      "text": "Переписать все на чистом javascript!",
+      "created": {
+        "utc": "2021-03-31T21:22:37.811Z",
+        "timestamp": 1617225757811
+      },
+      "edited": {
+        "utc": "2021-03-31T21:22:46.946Z",
+        "timestamp": 1617225766946
+      },
+      "completed": {
+        "status": false,
+        "utc": null,
+        "timestamp": null
+      }
+    }
+  ]
+}

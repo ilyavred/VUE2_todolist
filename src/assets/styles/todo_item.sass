@@ -1,0 +1,232 @@
+
+// @use 'checkbox'
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;600;800&display=swap')
+%global-font
+    font-family: 'JetBrains Mono', monospace
+
+$uiBlue: #0063f7
+$textBlue: #001aff
+$white: #ffffff
+$textLightGrey: #808080
+$textGrey: #666
+
+%input
+    @extend %global-font
+    margin: 0 16px
+    padding: 5px 8px
+    border: none
+    border-radius: 4px
+    font-size: 14px
+    font-weight: 400
+    background-color: #f7f7f7
+    &:focus
+        background-color: $white
+        outline-color: $uiBlue
+        // box-shadow: 0 0 0px 2px #1100ff inset
+
+%button
+    @extend %global-font
+    border-radius: 4px
+    background-color: rgba(0, 0, 0, 0)
+    color: $uiBlue
+    border: 1px solid $uiBlue
+    cursor: pointer
+    padding: 6px 12px
+
+#app
+    margin: 0
+    padding: 0
+    background-color: $white
+    
+
+.todolist
+    @extend %global-font
+    display: flex
+    $todolist_padding: 10px
+    padding: 0 $todolist_padding
+    text-align: left
+    // width: 100%
+    flex-direction: column-reverse
+    align-items: stretch
+
+    .creation
+        display: block
+        padding: 16px
+        .button
+            @extend %button
+            width: 100%
+        .task-item
+            position: absolute
+            z-index: -1
+
+        &.on-create
+            .button
+                display: none
+            .task-item
+                position: relative
+                z-index: 100
+                .content
+                    .edit-task
+                        background-color: #f7f7f7
+                    .context-actions
+                        display: none
+                    .task-text
+                        display: none
+
+    .filter
+        @extend %global-font
+        padding: 8px
+        margin: 0 0 16px 0
+        background-color: #eee
+
+        .check__filter
+            margin: 8px
+
+        .filter__label
+            font-size: 14px
+            color: $textGrey
+        
+        .filter__search
+            @extend %input
+        
+        .clear-search
+            @extend %button
+    
+
+.task-item
+    @extend %global-font
+    margin: 8px 0 0 0
+    display: flex
+    flex-direction: column
+    align-items: center
+    width: 100%
+    // heigth: Auto
+    min-height: 32px
+
+    &.newTask
+        margin: 0
+        .content
+            .text-container
+                padding: 0
+                .edit-task
+                    position: relative
+                    flex-grow: 1
+                    margin: 0 0 0 2px
+                    width: 80%
+                    z-index: 100
+
+    &.edit_now
+        .content
+            // background-color: $textLightGrey
+            // padding: 0
+
+            .context_button
+                display: none
+
+            .text-container
+                min-height: 16px
+                // padding: 2xp 0
+
+                .checkbox
+                    display: none
+
+                .edit-task
+                    position: relative
+                    flex-grow: 1
+                    margin: 0 0 0 2px
+                    // width: calc(100% - 67.5px - (20px))
+                    z-index: 100
+
+                .task-text
+                    display: none
+        &:hover
+            .context_button.delete
+                display: none
+
+    .content
+        text-align: left
+        display: flex
+        flex-direction: row
+        align-self: stretch
+        justify-content: center
+        min-height: 36px
+
+        .checkbox
+            order: 0
+            $checkbox_padding: 16px
+            margin: 0 $checkbox_padding
+            display: flex
+            align-items: center
+            flex-grow: 0
+
+            .task-check
+                margin: 4px
+                transform: scale(1.5)
+
+        .text-container
+            display: flex
+            flex-direction: row
+            align-items: middle
+            padding: 4px 0
+            flex-grow: 6
+
+            .edit-task
+                @extend %input
+                // margin: -6px 0 0 2px
+                margin: 0
+                flex-grow: 1
+                width: calc(100% - 67.5px - 36px)
+                position: absolute
+                z-index: -1
+                background-color: $white
+
+                // display: none
+
+            .task-text
+
+                // width: 100%
+                height: auto
+                cursor: pointer
+
+                font-style: normal
+                font-weight: 400
+                font-size: 14px
+                line-height: 16px
+                /* identical to box height */
+
+                display: flex
+                align-items: center
+
+                /* Black-100 */
+
+                color: #303035
+
+
+                /* Inside Auto Layout */
+
+                flex: none
+                order: 0
+                flex-grow: 1
+                margin: 0 10px
+                
+    
+        &.completed
+            .task-text
+                text-decoration-line: line-through
+                color: $textLightGrey
+
+    .context-actions
+        display: flex
+        flex-grow: 0
+
+        .context_button
+            @extend %button
+            align-self: center
+            flex-grow: 1
+
+        .context_button.delete
+            display: none
+
+    &:hover
+        .context_button.delete
+            display: block

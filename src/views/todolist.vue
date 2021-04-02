@@ -19,16 +19,16 @@
       ref="input_new_task"
       v-model="this.newTask.temp"
       :task="this.newTask"
-      @applyText="saveTaskN"
-      @cancelTemp="cancelTaskN"
+      @applyText="pullNewTask"
+      @cancelTemp="cancelInitTask"
       ></Todoitem>
       
       <input value="+ Добавить задание" type="button" class="button"
-      v-on:click="createNewTaskN"
+      v-on:click="initNewTask"
       />
     </div>
 
-    <div class="filter by-state">
+    <div class="filter">
       <input type='checkbox'
       id="todo"
       class='check__filter  show-todo'
@@ -43,12 +43,16 @@
       placeholder="Поиск таска"
       />
 
-      <input type="button"
+      <!-- <input type="button"
       class="clear-search"
       value="Cбросить"
       v-show="(this.search != '')"
       @click="clearSearch"
-      />
+      /> -->
+
+      <span class="total">
+        Всего заданий:{{ tasksCount }} / Выполнены:{{ completedCount }}
+      </span>
     </div>
 
   </div>
@@ -56,7 +60,6 @@
 
 <script>
 import Todoitem from '@/components/todo-item.vue'
-// import db from '../../db.json'
 
 export default {
   name: 'tasks',
@@ -65,30 +68,36 @@ export default {
   },
   data() {
     return {
-        jsonHost: "http://localhost:3000/tasks",
-        tasks: null,
-        todo: false,
-        search: "",
-        tempOriginal: "",
-        newTask: { text: null, id: 'temp', temp: true },
-        tempTask: {
-          id: 'temp',
-          text: "",
-          temp: true,
-          created: { utc: null, timestamp: null, },
-          edited: { utc: null, timestamp: null },
-          completed: { status: false, utc: null, timestamp: null }
-        }
+      jsonHost: "http://localhost:3000/tasks",
+      tasks: null,
+      todo: false,
+      search: "",
+      updateInterval: 60000,
+      tempOriginal: "",
+      newTask: { text: null, id: 'temp', temp: true },
+      tempTask: {
+        id: 'temp',
+        text: "",
+        temp: true,
+        created: { utc: null, timestamp: null, },
+        edited: { utc: null, timestamp: null },
+        completed: { status: false, utc: null, timestamp: null }
+      },
     }
   },
 
   created() {
-    // this.tasks = 
     this.updateData()
+    setInterval(() => {this.updateData()}, this.updateInterval)
     window.addEventListener('keydown', this.onkey)
-
+    this.filtratedTasks = this.filtration()
   },
 
+  watch: {
+    search() {
+      this.filtratedTasks = this.filtration()
+    }
+  },
 
   computed: {
     tasksCount() {
@@ -108,42 +117,40 @@ export default {
         return !task.completed.status
       }).length
     },
-
-
   },
 
   methods: {
+    async updateData() {
+      try {
+        const response = await fetch(this.jsonHost)
+        // .then((response) => {
+        //     return response.json()
+        // })
+        const data = await response.json()
+  
+        this.tasks = data
+        await this.$nextTick()
+      }
+      catch (e) {
+        console.log(e)
+      }
+    },
+
     onkey(e) {
       if (e.keyCode === 13) {
         if (this.newTask.text == null) {
-          this.createNewTaskN()
+          this.initNewTask()
         }
       }
     },
 
-    clearSearch() {
-      this.search = ""
-    },
-
-    filtration(tasks) {
-      return tasks
+    filtration(t) {
+      return t
       .filter(task => {
         return !task.completed.status || !this.todo
       })
       .filter(task => {
         return task.text.toLowerCase().includes(this.search.toLowerCase())
-      })
-    },
-
-    updateData() {
-      fetch(this.jsonHost)
-      .then((response) => {
-          return response.json()
-      })
-      .then((data) => {
-          if (data) {
-            this.tasks = data
-          }
       })
     },
 
@@ -172,11 +179,12 @@ export default {
 
     },
 
-    createNewTaskN() {
+    initNewTask() {
+      this.search = ''
+      this.todo = false
       this.$set(this.newTask, 'text', '')
       let target = this.$refs.input_new_task.$refs.edit_text
       target.select()
-
     },
 
     setBackupText(t) {
@@ -184,18 +192,11 @@ export default {
     },
 
     saveTask(e, index) {
-      // console.log(this.tempOriginal + ": backuped ")
-
-      if (e.value != this.tempOriginal) {
-        // let currIndex = this.tasks.findIndex(item => item.id === e.id)
-        // console.log(index)
-        // let currIndex = this.tasks[]
-        // let cleanData = this.tasks[currIndex]
-        let target = null
-        let method = 'POST'
-        const thisMoment = new Date()
-
-        if (!this.tasks[index].temp) {
+      if (e.value != this.tempOriginal && !this.tasks[index].temp) {
+        if (e.value != '') {
+          let target = e.id
+          let method = 'PATCH'
+          const thisMoment = new Date() 
           let editedData = {
             text: e.value,
             edited: {
@@ -204,92 +205,34 @@ export default {
             }
           }
           this.tasks[index] = Object.assign({}, this.tasks[index], editedData)
-          method = 'PATCH'
-          target = e.id
           this.sendToServer(method, editedData, target)
-        }
-        else {
-          let cleanData = this.tasks.pop()
-          let lastTask = this.tasks.slice(-1).pop()
-          let newId = lastTask.id + 1
-          let newSlotPosition = this.tasks.length
-
-          cleanData = {
-            temp: false,
-            id: newId,
-            text: e.value,
-            created: {
-              utc: thisMoment,
-              timestamp: thisMoment.getTime()
-            },
-            edited: {
-              utc: null,
-              timestamp: null
-            },
-            completed: {
-              status: false,
-              utc: null,
-              timestamp: null
-            }
-          }
-          // console.log(cleanData)
-
-          // let count = this.tasks.length
-          this.$set(this.tasks, newSlotPosition, cleanData)
-          // console.log(this.tasks)
-          // Object.defineProperties(this.tasks[currIndex], cleanData)
-          this.sendToServer(method, cleanData, target)
+        } 
+        else {    
+          this.delTask(e, index)
         }
       }
-
-
-
-      // let raw = {
-      //     text: e.value,
-      //     edited: {
-      //         utc: thisMoment,
-      //         timestamp: thisMoment.getTime(),
-      //     }
-      // }
-      // Object.defineProperties(this.tasks[index], raw)
-      // this.tasks = Object.assign({}, this.tasks[id], raw)
-
-      // let method = 'PATCH'
-
     },
 
-    saveTaskN(e) {
+    pullNewTask(e) {
 
       if (e.value != '') {
         let target = null
         let method = 'POST'
         const thisMoment = new Date()
 
-        
         console.log(this.newTask.text)
 
         let lastTask = this.tasks.slice(-1).pop()
         let newId = lastTask.id + 1
         let newSlotPosition = this.tasks.length
 
-        let cleanData = {
-          temp: false,
-          id: newId,
-          text: e.value,
-          created: {
-            utc: thisMoment,
-            timestamp: thisMoment.getTime()
-          },
-          edited: {
-            utc: null,
-            timestamp: null
-          },
-          completed: {
-            status: false,
-            utc: null,
-            timestamp: null
-          }
-        }
+        let cleanData = this.tempTask
+        cleanData.temp = false,
+        cleanData.id = newId,
+        cleanData.text = e.value,
+        cleanData.created.utc = thisMoment
+        cleanData.created.timestamp = thisMoment.getTime()
+
         this.$set(this.tasks, newSlotPosition, cleanData)
         this.sendToServer(method, cleanData, target)
         this.$set(this.newTask, 'text', null)
@@ -302,50 +245,39 @@ export default {
       
     },
 
-    cancelTaskN() {
+    cancelInitTask() {
       this.$set(this.newTask, 'text', null)
     },
 
-    changeTask(e, id) {
-      const thisMoment = new Date()
+    changeTask(e, index) {
       let utc = null
       let timestamp = null
-
       if (e.checked) {
+        const thisMoment = new Date()
         utc = thisMoment
         timestamp = thisMoment.getTime()
       }
-      this.tasks[id].completed.status = e.checked
-      this.tasks[id].completed.utc = utc
-      this.tasks[id].completed.timestamp = timestamp
-
-      let raw = {
+      let editedData = {
         completed: {
           status: e.checked,
           utc: utc,
           timestamp: timestamp,
         }
       }
+      this.tasks[index] = Object.assign({}, this.tasks[index], editedData)
       let method = 'PATCH'
-      this.sendToServer(method, raw, e.id)
+      this.sendToServer(method, editedData, e.id)
     },
 
     delTask(e, index) {
-      // let currIndex = this.tasks.indexOf(x => x.id === e.id)
       this.tasks.splice(index, 1)
 
       let raw = Object
       let method = 'DELETE'
       this.sendToServer(method, raw, e.id)
-      
     }
   },
 
-  watch: {
-    newTask() {
-      this.newTask.forEach(element => console.log(element.text))
-    }
-  }
 
 };
 </script>

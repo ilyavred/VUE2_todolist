@@ -139,9 +139,9 @@
         "timestamp": 1617141064062
       },
       "completed": {
-        "status": false,
-        "utc": null,
-        "timestamp": null
+        "status": true,
+        "utc": "2021-04-02T14:24:51.944Z",
+        "timestamp": 1617373491944
       }
     },
     {
@@ -189,8 +189,8 @@
         "timestamp": 1617216312820
       },
       "edited": {
-        "utc": null,
-        "timestamp": null
+        "utc": "2021-04-02T20:13:59.569Z",
+        "timestamp": 1617394439569
       },
       "completed": {
         "status": false,
@@ -214,6 +214,78 @@
         "status": false,
         "utc": null,
         "timestamp": null
+      }
+    },
+    {
+      "id": 16,
+      "text": "Добавить тотал-счетчик количества тасков",
+      "temp": false,
+      "created": {
+        "utc": "2021-04-01T16:21:39.195Z",
+        "timestamp": 1617294099195
+      },
+      "edited": {
+        "utc": "2021-04-01T16:28:36.142Z",
+        "timestamp": 1617294516142
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-04-01T16:28:26.401Z",
+        "timestamp": 1617294506401
+      }
+    },
+    {
+      "id": 17,
+      "text": "Обновлять каждую минуту относительные метки времени",
+      "temp": false,
+      "created": {
+        "utc": "2021-04-02T14:23:58.482Z",
+        "timestamp": 1617373438482
+      },
+      "edited": {
+        "utc": null,
+        "timestamp": null
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-04-02T18:07:34.445Z",
+        "timestamp": 1617386854445
+      }
+    },
+    {
+      "id": 18,
+      "text": "динамически обновлять список тасков с сервера",
+      "temp": false,
+      "created": {
+        "utc": "2021-04-02T15:07:25.861Z",
+        "timestamp": 1617376045861
+      },
+      "edited": {
+        "utc": null,
+        "timestamp": null
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-04-02T18:07:36.320Z",
+        "timestamp": 1617386856320
+      }
+    },
+    {
+      "id": 19,
+      "text": "Сделать ежеминутный, асинхронный запрос к серверу",
+      "temp": false,
+      "created": {
+        "utc": "2021-04-02T20:34:52.435Z",
+        "timestamp": 1617395692435
+      },
+      "edited": {
+        "utc": "2021-04-02T21:51:09.080Z",
+        "timestamp": 1617400269080
+      },
+      "completed": {
+        "status": true,
+        "utc": "2021-04-02T21:49:29.900Z",
+        "timestamp": 1617400169900
       }
     }
   ]

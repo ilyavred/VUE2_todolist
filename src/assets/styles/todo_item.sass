@@ -1,5 +1,4 @@
 
-// @use 'checkbox'
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;600;800&display=swap')
 %global-font
     font-family: 'JetBrains Mono', monospace
@@ -22,16 +21,24 @@ $textGrey: #666
     &:focus
         background-color: $white
         outline-color: $uiBlue
-        // box-shadow: 0 0 0px 2px #1100ff inset
 
 %button
     @extend %global-font
     border-radius: 4px
-    background-color: rgba(0, 0, 0, 0)
+    background-color: rgba(30, 100, 255, 0)
     color: $uiBlue
     border: 1px solid $uiBlue
     cursor: pointer
     padding: 6px 12px
+    transition: background-color .3s
+    &:hover
+        background-color: rgba(30, 100, 255, 0.1)
+
+@-webkit-keyframes showdelbutt
+    0%
+        opacity: 0
+    100%
+        opacity: 1
 
 #app
     margin: 0
@@ -75,33 +82,43 @@ $textGrey: #666
 
     .filter
         @extend %global-font
-        padding: 8px
+        font-size: 14px
+        color: $textGrey
+        padding: 8px 16px
         margin: 0 0 16px 0
         background-color: #eee
+        display: flex
+        flex-direction: row
+        align-items: center
 
         .check__filter
             margin: 8px
 
-        .filter__label
-            font-size: 14px
-            color: $textGrey
+        .total
+            color: $uiBlue
         
         .filter__search
             @extend %input
+            flex-grow: 1
+
         
         .clear-search
             @extend %button
+
     
 
 .task-item
     @extend %global-font
-    margin: 8px 0 0 0
+    margin: 0
     display: flex
     flex-direction: column
     align-items: center
-    width: 100%
+    // width: 100%
+    overflow-x: hidden
     // heigth: Auto
     min-height: 32px
+    border-bottom: 1px solid transparent
+    padding: 8px
 
     &.newTask
         margin: 0
@@ -134,7 +151,6 @@ $textGrey: #666
                     position: relative
                     flex-grow: 1
                     margin: 0 0 0 2px
-                    // width: calc(100% - 67.5px - (20px))
                     z-index: 100
 
                 .task-text
@@ -180,11 +196,7 @@ $textGrey: #666
                 z-index: -1
                 background-color: $white
 
-                // display: none
-
             .task-text
-
-                // width: 100%
                 height: auto
                 cursor: pointer
 
@@ -192,28 +204,40 @@ $textGrey: #666
                 font-weight: 400
                 font-size: 14px
                 line-height: 16px
-                /* identical to box height */
 
                 display: flex
                 align-items: center
 
-                /* Black-100 */
-
                 color: #303035
-
-
-                /* Inside Auto Layout */
 
                 flex: none
                 order: 0
                 flex-grow: 1
                 margin: 0 10px
+            
                 
     
         &.completed
             .task-text
                 text-decoration-line: line-through
                 color: $textLightGrey
+
+    .metadata
+        display: none
+        font-size: 9px
+        color: $textGrey
+        flex-grow: 0
+        flex-direction: column
+        align-self: center
+        text-align: right
+        margin: 0 8px
+        .time
+            flex-grow: 1
+            align-self: stretch
+            text-align: right
+            display: block
+            margin: 0
+            // align-items: flex-end
 
     .context-actions
         display: flex
@@ -225,8 +249,18 @@ $textGrey: #666
             flex-grow: 1
 
         .context_button.delete
+            // position: absolute
             display: none
-
+            opacity: 0
     &:hover
+        background-color: #fcfcfc
+        border-bottom: 1px solid #efefef
+
+        .metadata
+            display: flex
+
+
         .context_button.delete
             display: block
+            animation: showdelbutt .2s ease-in .1s forwards
+            -webkit-animation: showdelbutt .2s ease-in .1s forwards

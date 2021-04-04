@@ -1,111 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;600;800&display=swap')
-%global-font
-    font-family: 'JetBrains Mono', monospace
-
-$uiBlue: #0063f7
-$textBlue: #001aff
-$white: #ffffff
-$textLightGrey: #808080
-$textGrey: #666
-
-%input
-    @extend %global-font
-    margin: 0 16px
-    padding: 5px 8px
-    border: none
-    border-radius: 4px
-    font-size: 14px
-    font-weight: 400
-    background-color: #f7f7f7
-    &:focus
-        background-color: $white
-        outline-color: $uiBlue
-
-%button
-    @extend %global-font
-    border-radius: 4px
-    background-color: rgba(30, 100, 255, 0)
-    color: $uiBlue
-    border: 1px solid $uiBlue
-    cursor: pointer
-    padding: 6px 12px
-    transition: background-color .3s
-    &:hover
-        background-color: rgba(30, 100, 255, 0.1)
-
-@-webkit-keyframes showdelbutt
-    0%
-        opacity: 0
-    100%
-        opacity: 1
-
-#app
-    margin: 0
-    padding: 0
-    background-color: $white
-    
-
-.todolist
-    @extend %global-font
-    display: flex
-    $todolist_padding: 10px
-    padding: 0 $todolist_padding
-    text-align: left
-    // width: 100%
-    flex-direction: column-reverse
-    align-items: stretch
-
-    .creation
-        display: block
-        padding: 16px
-        .button
-            @extend %button
-            width: 100%
-        .task-item
-            position: absolute
-            z-index: -1
-
-        &.on-create
-            .button
-                display: none
-            .task-item
-                position: relative
-                z-index: 100
-                .content
-                    .edit-task
-                        background-color: #f7f7f7
-                    .context-actions
-                        display: none
-                    .task-text
-                        display: none
-
-    .filter
-        @extend %global-font
-        font-size: 14px
-        color: $textGrey
-        padding: 8px 16px
-        margin: 0 0 16px 0
-        background-color: #eee
-        display: flex
-        flex-direction: row
-        align-items: center
-
-        .check__filter
-            margin: 8px
-
-        .total
-            color: $uiBlue
-        
-        .filter__search
-            @extend %input
-            flex-grow: 1
-
-        
-        .clear-search
-            @extend %button
-
-    
+@import global
 
 .task-item
     @extend %global-font
@@ -119,45 +13,18 @@ $textGrey: #666
     min-height: 32px
     border-bottom: 1px solid transparent
     padding: 8px
+    &:hover
+        background-color: #fcfcfc
+        border-bottom: 1px solid #efefef
 
-    &.newTask
-        margin: 0
-        .content
-            .text-container
-                padding: 0
-                .edit-task
-                    position: relative
-                    flex-grow: 1
-                    margin: 0 0 0 2px
-                    width: 80%
-                    z-index: 100
+        .metadata
+            display: flex
 
-    &.edit_now
-        .content
-            // background-color: $textLightGrey
-            // padding: 0
 
-            .context_button
-                display: none
-
-            .text-container
-                min-height: 16px
-                // padding: 2xp 0
-
-                .checkbox
-                    display: none
-
-                .edit-task
-                    position: relative
-                    flex-grow: 1
-                    margin: 0 0 0 2px
-                    z-index: 100
-
-                .task-text
-                    display: none
-        &:hover
-            .context_button.delete
-                display: none
+        .context_button.delete
+            display: block
+            animation: showdelbutt .2s ease-in .1s forwards
+            -webkit-animation: showdelbutt .2s ease-in .1s forwards
 
     .content
         text-align: left
@@ -166,6 +33,12 @@ $textGrey: #666
         align-self: stretch
         justify-content: center
         min-height: 36px
+
+        &.completed
+            .text-container
+                .task-text
+                    text-decoration-line: line-through
+                    color: $textLightGrey
 
         .checkbox
             order: 0
@@ -214,13 +87,46 @@ $textGrey: #666
                 order: 0
                 flex-grow: 1
                 margin: 0 10px
-            
-                
-    
-        &.completed
-            .task-text
-                text-decoration-line: line-through
-                color: $textLightGrey
+
+
+    &.newTask
+        margin: 0
+        .content
+            .text-container
+                padding: 0
+                .edit-task
+                    position: relative
+                    flex-grow: 1
+                    margin: 0 0 0 2px
+                    width: 80%
+                    z-index: 100
+
+    &.edit_now
+        &:hover
+            .context_button.delete
+                display: none
+
+        .content
+
+            .context_button
+                display: none
+
+            .text-container
+                min-height: 16px
+                // padding: 2xp 0
+
+                .checkbox
+                    display: none
+
+                .edit-task
+                    position: relative
+                    flex-grow: 1
+                    margin: 0 0 0 2px
+                    z-index: 100
+
+                .task-text
+                    display: none
+
 
     .metadata
         display: none
@@ -252,15 +158,3 @@ $textGrey: #666
             // position: absolute
             display: none
             opacity: 0
-    &:hover
-        background-color: #fcfcfc
-        border-bottom: 1px solid #efefef
-
-        .metadata
-            display: flex
-
-
-        .context_button.delete
-            display: block
-            animation: showdelbutt .2s ease-in .1s forwards
-            -webkit-animation: showdelbutt .2s ease-in .1s forwards

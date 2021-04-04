@@ -53,11 +53,11 @@
                 </span>
             </div>
             <div class="context-actions">
-                <!-- <button class="context_button cancel"
+                <button class="context_button cancel"
                 v-if="(task.id == 'temp')"
                 id="temp"
                 @click="$emit('cancelTemp', $event.target)"
-                >Отмена</button> -->
+                >Отмена</button>
 
                 <button class="context_button delete"
                 v-if="(task.id != 'temp')"

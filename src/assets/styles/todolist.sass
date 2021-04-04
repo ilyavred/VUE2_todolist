@@ -1,0 +1,67 @@
+@import global
+
+@-webkit-keyframes showdelbutt
+    0%
+        opacity: 0
+    100%
+        opacity: 1
+
+
+.todolist
+    @extend %global-font
+    display: flex
+    $todolist_padding: 10px
+    padding: 0 $todolist_padding
+    text-align: left
+    // width: 100%
+    flex-direction: column-reverse
+    align-items: stretch
+
+    .creation
+        display: block
+        padding: 16px
+        .button
+            @extend %button
+            width: 100%
+        .task-item
+            position: absolute
+            z-index: -1
+
+        &.on-create
+            .button
+                display: none
+            .task-item
+                position: relative
+                z-index: 100
+                .content
+                    .edit-task
+                        background-color: #f7f7f7
+                    .context-actions
+                        display: none
+                    .task-text
+                        display: none
+
+    .filter
+        @extend %global-font
+        font-size: 14px
+        color: $textGrey
+        padding: 8px 16px
+        margin: 0 0 16px 0
+        background-color: #eee
+        display: flex
+        flex-direction: row
+        align-items: center
+
+        .check__filter
+            margin: 8px
+
+        .total
+            color: $uiBlue
+        
+        .filter__search
+            @extend %input
+            flex-grow: 1
+
+        
+        .clear-search
+            @extend %button
